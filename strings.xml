@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RecipeApp</string>
+    <string-array name="Options">
+        <item>Upload recipe</item>
+        <item>Search for recipe</item>
+    </string-array>
+</resources>
