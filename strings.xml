@@ -2,6 +2,7 @@
     <string name="app_name">RecipeApp</string>
     <string-array name="Options">
         <item>Upload recipe</item>
-        <item>Search for recipe</item>
+        <item>Search for recipe&#160;</item>
+        <item>Random recipe</item>
     </string-array>
 </resources>
