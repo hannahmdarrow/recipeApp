@@ -40,6 +40,16 @@
         android:textAlignment="center"
         />
 
+    <View
+        android:id="@+id/myRectangleView"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/pickOption"
+        android:background="@drawable/rectangle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        />
+
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
@@ -49,6 +59,29 @@
         android:entries="@array/Options"
         android:layout_below="@id/pickOption"
         android:layout_marginTop="20dp"
+        android:spinnerMode="dropdown"
+        android:drawSelectorOnTop="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="▼"
+        android:textSize="24sp"
+        android:layout_below="@id/pickOption"
+        android:layout_toRightOf="@+id/spinner"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="-20dp"
+        android:background="#adf7a8"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:text="START"
+        android:textSize="32sp"
         />
 
 </RelativeLayout>
