@@ -1,8 +1,9 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#E0FFD3"
+    android:background="#adf7a8"
+    android:popupBackground="#adf7a8"
     android:textColor="#300800"
     android:textSize="24sp"
     />
