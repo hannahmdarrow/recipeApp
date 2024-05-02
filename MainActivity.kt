@@ -13,5 +13,15 @@ class MainActivity : AppCompatActivity() {
         val adapter: ArrayAdapter<*> =
             ArrayAdapter.createFromResource(this, R.array.Options, R.layout.spinner_item)
         spinner.adapter = adapter
+        spinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View, position: Int, id: Long) {
+                //go to view corresponding to selected item
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // write code to perform some action
+            }
+        }
     }
 }
