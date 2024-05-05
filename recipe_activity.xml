@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/recipeName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:textSize="30sp"
+        android:text="Recipe Selected:"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ingredients"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/recipeName"
+        android:textSize="20sp"
+        android:text="Ingredients:"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/instructions"
+        android:layout_marginTop="180dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/ingredients"
+        android:textSize="20sp"
+        android:text="Instructions:"
+        />
+
+    <CheckBox
+        android:id="@+id/checkbox_sample"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set as favorite recipe"
+        android:checked="false"
+        android:layout_marginTop="690dp"
+        android:layout_marginLeft="7dp"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/CustomRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="650dp"
+        android:layout_centerHorizontal="true"
+        android:numStars="5"
+        android:rating="0"
+        android:stepSize="0.5" />
+
+</RelativeLayout>
