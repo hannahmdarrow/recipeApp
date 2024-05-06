@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 class RecipeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.recipe_activity)
+        setContentView(R.layout.activity_recipe)
         context = this
 
         var nameView = findViewById<TextView>(R.id.recipeName)
@@ -55,7 +55,7 @@ class RecipeActivity : AppCompatActivity() {
 
     inner class RatingListener: OnRatingBarChangeListener {
         override fun onRatingChanged(ratingBar: RatingBar?, rating: Float, fromUser: Boolean) {
-            currentRecipe.setRating(rating)
+            currentRecipe.setRating(rating.toInt())
         }
     }
     companion object {
