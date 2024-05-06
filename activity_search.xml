@@ -19,8 +19,7 @@
 
     </android.widget.SearchView>
 
-
-<!--list of suggestions-->
+    <!--list of suggestions-->
     <ListView
         android:id="@+id/suggestions"
         android:layout_width="match_parent"
@@ -28,5 +27,16 @@
         android:layout_below="@+id/search_bar"
         android:layout_weight="19"
         android:background="#E0FFD3"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BACK"
+        android:textSize="32sp"
+        android:backgroundTint="#300800"
+        android:id="@+id/back"
+        android:layout_marginBottom="60dp"
+        android:layout_gravity="center"
+        />
 
 </LinearLayout>

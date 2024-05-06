@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
@@ -32,6 +33,10 @@ class SearchActivity : AppCompatActivity() {
         firebase = FirebaseDatabase.getInstance()
         var reference: DatabaseReference = firebase.reference
         reference.addValueEventListener(DataListener())
+        var goBack: Button = findViewById<Button>(R.id.back)
+        goBack.setOnClickListener {
+            this.finish()
+        }
         var task : ParseTask = ParseTask( this )
         task.start( )
     }
