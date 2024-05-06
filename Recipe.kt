@@ -2,7 +2,6 @@ package com.example.recipeapp
 
 import android.content.Context
 import android.content.SharedPreferences
-import org.w3c.dom.ProcessingInstruction
 
 class Recipe {
     private var name: String = ""
@@ -16,7 +15,7 @@ class Recipe {
         pref = context.getSharedPreferences(context.packageName + "_preferences",
             Context.MODE_PRIVATE)
         editor = pref.edit()
-        editor.putInt("rating", 0)
+        editor.putFloat("rating", 0f)
         editor.putString("favRecipe", "")
         editor.commit()
     }
@@ -44,18 +43,21 @@ class Recipe {
     fun getInstructions(): ArrayList<String> {
         return instructions
     }
-    fun setRating(rating: Int) {
-        editor.putInt("rating", rating)
+    fun setRating(rating: Float) {
+        editor.putFloat("rating", rating)
         editor.commit()
     }
-    fun getRating() : Int {
-        return pref.getInt("rating", 0)
+    fun getRating() : Float {
+        return pref.getFloat("rating", 0f)
     }
     fun setFavorite() {
         editor.putString("favRecipe", name)
         editor.commit()
     }
     fun isFavorite(): Boolean {
-        return pref.getString("favRecipe", "") == name
+        return getFavorite() == name
+    }
+    fun getFavorite(): String {
+        return pref.getString("favRecipe", "")!!
     }
 }
