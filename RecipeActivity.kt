@@ -55,7 +55,7 @@ class RecipeActivity : AppCompatActivity() {
 
     inner class RatingListener: OnRatingBarChangeListener {
         override fun onRatingChanged(ratingBar: RatingBar?, rating: Float, fromUser: Boolean) {
-            currentRecipe.setRating(rating.toInt())
+            currentRecipe.setRating(rating)
         }
     }
     companion object {
