@@ -1,6 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recipe name:"
+        android:textSize="36sp"
+        android:id="@+id/recipeHeader"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recipeHeader"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/recipeName"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add ingredient:"
+        android:textSize="36sp"
+        android:id="@+id/ingredientHeader"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/recipeName"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ingredientHeader"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/ingredient"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ingredient"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="ADD INGREDIENT"
+        android:textSize="32sp"
+        android:backgroundTint="#300800"
+        android:id="@+id/addIngredient"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add instruction:"
+        android:textSize="36sp"
+        android:id="@+id/instructionHeader"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/addIngredient"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/instructionHeader"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/instruction"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/instruction"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="ADD INSTRUCTION"
+        android:textSize="30sp"
+        android:backgroundTint="#300800"
+        android:id="@+id/addInstruction"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addInstruction"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:text="SUBMIT RECIPE"
+        android:textSize="32sp"
+        android:backgroundTint="#300800"
+        android:id="@+id/submit"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/submit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="BACK"
+        android:textSize="32sp"
+        android:backgroundTint="#300800"
+        android:id="@+id/back"
+        />
+
+</RelativeLayout>
