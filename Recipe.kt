@@ -2,6 +2,7 @@ package com.example.recipeapp
 
 import android.content.Context
 import android.content.SharedPreferences
+import org.w3c.dom.ProcessingInstruction
 
 class Recipe {
     private var name: String = ""
@@ -28,11 +29,17 @@ class Recipe {
     fun addIngredient(ingredient: String) {
         ingredients.add(ingredient)
     }
+    fun setIngredients(ingredients: ArrayList<String>) {
+        this.ingredients = ingredients
+    }
     fun getIngredients(): ArrayList<String> {
         return ingredients
     }
     fun addStep(step: String) {
         instructions.add(step)
+    }
+    fun setInstructions(instructions: ArrayList<String>) {
+        this.instructions = instructions
     }
     fun getInstructions(): ArrayList<String> {
         return instructions

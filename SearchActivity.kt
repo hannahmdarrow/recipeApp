@@ -1,17 +1,14 @@
 package com.example.recipeapp
 
-import android.app.SearchManager
 import android.content.Intent
-import android.database.MatrixCursor
 import android.os.Bundle
-import android.provider.BaseColumns
-import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.recipeapp.R
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -20,61 +17,82 @@ import com.google.firebase.database.ValueEventListener
 
 class SearchActivity : AppCompatActivity() {
 
-    private lateinit var database : FirebaseDatabase
-    private lateinit var ref : DatabaseReference
-    private lateinit var searchbar: SearchView
-    private var search : String = ""
+    private lateinit var listView : ListView
+    private lateinit var searchBar : SearchView
+    private lateinit var searchResult: String
+    private var recipes : ArrayList<String> = ArrayList<String>()
+    private lateinit var firebase : FirebaseDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-
-        database = FirebaseDatabase.getInstance()
-        searchbar = findViewById<SearchView>(R.id.search_bar)
-        var listener : QueryListener = QueryListener()
-        searchbar.setOnQueryTextListener(listener)
+        listView = findViewById(R.id.suggestions)
+        searchBar = findViewById(R.id.search_bar)
+        searchResult = searchBar.query.toString()
+        firebase = FirebaseDatabase.getInstance()
+        var reference: DatabaseReference = firebase.reference
+        reference.addValueEventListener(DataListener())
+        var task : ParseTask = ParseTask( this )
+        task.start( )
     }
 
-    fun listen() {
-        ref = database.getReference(search)
-        var listener : DataListener = DataListener()
-        ref.addValueEventListener( listener )
-    }
+    fun displayList( recipes : ArrayList<String>? ) {
+        if( recipes != null ) {
+            var adapter : ArrayAdapter<String> =
+                ArrayAdapter(this, android.R.layout.simple_list_item_1, recipes)
+            listView.adapter = adapter
 
-    fun displayRecipe() {
-        var intent : Intent = Intent(this, RecipeActivity::class.java)
-        startActivity(intent)
-    }
-
-    fun saveTitle() {
-
-    }
-
-    inner class QueryListener : SearchView.OnQueryTextListener {
-        override fun onQueryTextSubmit(p0: String): Boolean {
-            search = p0
-            listen()
-            return false
+            // set up event handling
+            var lih : ListItemHandler = ListItemHandler()
+            listView.onItemClickListener = lih
+        } else {
+            Toast.makeText(this, "Recipe not found", Toast.LENGTH_LONG).show()
         }
+    }
 
-        override fun onQueryTextChange(p0: String): Boolean {
-            return false
+    inner class ListItemHandler : AdapterView.OnItemClickListener {
+        override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            var selectedRecipe : String = recipes.get( p2 )
+            var reference: DatabaseReference = firebase.reference.child(selectedRecipe)
+            RecipeActivity.currentRecipe.setName(selectedRecipe)
+            reference.addListenerForSingleValueEvent (object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        RecipeActivity.currentRecipe.setIngredients(
+                            snapshot.child("ingredients").value as ArrayList<String>)
+                        RecipeActivity.currentRecipe.setInstructions(
+                            snapshot.child("instructions").value as ArrayList<String>)
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {}
+            })
+            var myIntent: Intent = Intent(this@SearchActivity,
+                RecipeActivity::class.java)
+            startActivity(myIntent)
+        }
+    }
+
+    inner class ParseTask : Thread {
+        private lateinit var activity : SearchActivity
+        constructor( activity : SearchActivity ) {
+            this.activity = activity
+        }
+        override fun run() {
+            super.run()
+            //get list of all recipes depending on what was typed in the search bar
+            activity.runOnUiThread { activity.displayList( recipes ) }
         }
     }
 
     inner class DataListener : ValueEventListener {
-        override fun onDataChange(snapshot : DataSnapshot) {
-            var key : String? = snapshot.key
-            var valueObject : Any? = snapshot.value
-            if(valueObject != null) {
-                Toast.makeText(this@SearchActivity, "Accessing $key recipe", Toast.LENGTH_LONG).show()
-                displayRecipe()
-            } else {
-                Toast.makeText(this@SearchActivity, "Not found", Toast.LENGTH_LONG).show()
+        override fun onDataChange(snapshot: DataSnapshot) {
+            for (recipe in snapshot.children) {
+                if (!recipes.contains(recipe.key))
+                    recipes.add(recipe.key!!)
             }
         }
+        override fun onCancelled(error: DatabaseError) {
 
-        override fun onCancelled( error : DatabaseError ) {
-            Toast.makeText(this@SearchActivity, "Not found", Toast.LENGTH_LONG).show()
         }
     }
 }
