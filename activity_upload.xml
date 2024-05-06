@@ -10,24 +10,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Recipe name:"
-        android:textSize="36sp"
+        android:textSize="32sp"
         android:id="@+id/recipeHeader"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"/>
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/recipeHeader"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:hint="Enter Name"
         android:id="@+id/recipeName"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add ingredient:"
-        android:textSize="36sp"
+        android:textSize="32sp"
         android:id="@+id/ingredientHeader"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
@@ -35,10 +36,11 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/ingredientHeader"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:hint="Enter Ingredient"
         android:id="@+id/ingredient"/>
 
     <Button
@@ -46,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ingredient"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="ADD INGREDIENT"
         android:textSize="32sp"
         android:backgroundTint="#300800"
@@ -57,18 +59,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add instruction:"
-        android:textSize="36sp"
+        android:textSize="32sp"
         android:id="@+id/instructionHeader"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/addIngredient"/>
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_below="@+id/instructionHeader"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:hint="Enter Instruction"
         android:id="@+id/instruction"/>
 
     <Button
@@ -76,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/instruction"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:text="ADD INSTRUCTION"
         android:textSize="30sp"
         android:backgroundTint="#300800"
