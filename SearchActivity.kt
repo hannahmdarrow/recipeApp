@@ -147,8 +147,6 @@ class SearchActivity : AppCompatActivity() {
             if( p0 != null ) {
                 var words: ArrayList<String>? =
                     p0.getStringArrayList( SpeechRecognizer.RESULTS_RECOGNITION )
-                var scores : FloatArray? =
-                    p0.getFloatArray( SpeechRecognizer.CONFIDENCE_SCORES )
                 if( words != null ) {
                     var voiceSearch = words.joinToString(separator = " ")
                     searchBar.setQuery(voiceSearch, false)
