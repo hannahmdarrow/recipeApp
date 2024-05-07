@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:iconifiedByDefault="false"
         android:inputType="text"
-        android:queryHint="Search"
+        android:queryHint="Enter recipe name or minimum rating"
         android:background="#ACF8A8">
 
     </android.widget.SearchView>
