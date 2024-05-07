@@ -14,8 +14,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.lang.reflect.Type
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var intent : Intent
@@ -35,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    
+
     inner class SpinnerListener : AdapterView.OnItemSelectedListener {
         override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
             val options = resources.getStringArray(R.array.Options)
@@ -47,14 +45,14 @@ class MainActivity : AppCompatActivity() {
                 if (pref.getString("favRecipe", "") != "") {
                     var recipeName = pref.getString("favRecipe", "")
                     var recipeChild = database.reference.child(recipeName!!)
-                    RecipeActivity.currentRecipe.setName(recipeName)
+                    SearchActivity.currentRecipeName = recipeName
                     recipeChild.addListenerForSingleValueEvent (object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             if (snapshot.exists()) {
-                                RecipeActivity.currentRecipe.setIngredients(
-                                    snapshot.child("ingredients").value as ArrayList<String>)
-                                RecipeActivity.currentRecipe.setInstructions(
-                                    snapshot.child("instructions").value as ArrayList<String>)
+                                SearchActivity.currentIngredients =
+                                    snapshot.child("ingredients").value as ArrayList<String>
+                                SearchActivity.currentInstructions =
+                                    snapshot.child("instructions").value as ArrayList<String>
                             }
                         }
                         override fun onCancelled(error: DatabaseError) {}
@@ -68,9 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        override fun onNothingSelected(p0: AdapterView<*>?) {
-            TODO("Not yet implemented")
-        }
+        override fun onNothingSelected(p0: AdapterView<*>?) {}
 
     }
 }

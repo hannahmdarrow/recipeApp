@@ -10,17 +10,22 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class RecipeActivity : AppCompatActivity() {
+    private lateinit var currentRecipe: Recipe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
-        context = this
 
         var nameView = findViewById<TextView>(R.id.recipeName)
         var ingredientsView = findViewById<TextView>(R.id.ingredients)
         var instructionsView = findViewById<TextView>(R.id.instructions)
-        var name = currentRecipe.getName()
-        var ingredients = currentRecipe.getIngredients()
-        var instructions = currentRecipe.getInstructions()
+        var name = SearchActivity.currentRecipeName
+        var ingredients = SearchActivity.currentIngredients
+        var instructions = SearchActivity.currentInstructions
+
+        currentRecipe = Recipe(this)
+        currentRecipe.setName(name)
+        currentRecipe.setIngredients(ingredients)
+        currentRecipe.setInstructions(instructions)
 
         nameView.text = "Recipe Selected: " + name
         var allIngredients = "Ingredients: "
@@ -57,9 +62,5 @@ class RecipeActivity : AppCompatActivity() {
         override fun onRatingChanged(ratingBar: RatingBar?, rating: Float, fromUser: Boolean) {
             currentRecipe.setRating(rating)
         }
-    }
-    companion object {
-        lateinit var context: Context
-        var currentRecipe: Recipe = Recipe(context)
     }
 }
