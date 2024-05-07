@@ -15,7 +15,7 @@ class Recipe {
         pref = context.getSharedPreferences(context.packageName + "_preferences",
             Context.MODE_PRIVATE)
         editor = pref.edit()
-        editor.putFloat("rating", 0f)
+        editor.putFloat(name + "Rating", 0f)
         editor.putString("favRecipe", "")
         editor.commit()
     }
@@ -44,11 +44,11 @@ class Recipe {
         return instructions
     }
     fun setRating(rating: Float) {
-        editor.putFloat("rating", rating)
+        editor.putFloat(name + "Rating", rating)
         editor.commit()
     }
     fun getRating() : Float {
-        return pref.getFloat("rating", 0f)
+        return pref.getFloat(name + "Rating", 0f)
     }
     fun setFavorite() {
         editor.putString("favRecipe", name)

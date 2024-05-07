@@ -67,6 +67,16 @@ class SearchActivity : AppCompatActivity() {
                 for (recipe in recipes)
                     if (recipe.contains(newText!!, true))
                         newRecipes.add(recipe)
+                if (newText == "0" || newText == "0.5" || newText == "1" ||
+                    newText == "1.5" || newText == "2" || newText == "2.5" ||
+                    newText == "3" || newText == "3.5" || newText == "4" ||
+                    newText == "4.5" || newText == "5") {
+                    var rating = newText.toFloat()
+                    for (recipe in RecipeActivity.recipes) {
+                        if (recipe.getRating() >= rating)
+                            newRecipes.add(recipe.getName())
+                    }
+                }
                 displayList(newRecipes)
                 return false
             }

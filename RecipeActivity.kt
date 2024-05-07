@@ -26,6 +26,7 @@ class RecipeActivity : AppCompatActivity() {
         currentRecipe.setName(name)
         currentRecipe.setIngredients(ingredients)
         currentRecipe.setInstructions(instructions)
+        recipes.add(currentRecipe)
 
         nameView.text = "Recipe Selected: " + name
         var allIngredients = "Ingredients: " + ingredients.joinToString()
@@ -57,5 +58,8 @@ class RecipeActivity : AppCompatActivity() {
         override fun onRatingChanged(ratingBar: RatingBar?, rating: Float, fromUser: Boolean) {
             currentRecipe.setRating(rating)
         }
+    }
+    companion object {
+        var recipes: ArrayList<Recipe> = ArrayList<Recipe>();
     }
 }
