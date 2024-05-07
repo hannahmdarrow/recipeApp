@@ -1,9 +1,15 @@
 package com.example.recipeapp
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -11,6 +17,9 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -27,6 +36,11 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var firebase : FirebaseDatabase
     private lateinit var pref: SharedPreferences
     private lateinit var editor: SharedPreferences.Editor
+
+    //speech recognition stuff
+    private lateinit var launcher : ActivityResultLauncher<String>
+    private var permission : String = Manifest.permission.RECORD_AUDIO
+    private lateinit var speechRecognizer : SpeechRecognizer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +77,80 @@ class SearchActivity : AppCompatActivity() {
             this.finish()
         }
 
+        //more speech recognition stuff
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer( this )
+
+        var permissionStatus : Int = checkSelfPermission( permission )
+        if( permissionStatus == PackageManager.PERMISSION_GRANTED ) {
+            listen( )
+        } else {
+            var contract : ActivityResultContracts.RequestPermission =
+                ActivityResultContracts.RequestPermission( )
+            var results : Results = Results( )
+            launcher = registerForActivityResult( contract, results )
+            launcher.launch( permission )
+
+        }
+
         var task : ParseTask = ParseTask( this )
         task.start( )
+
+    }
+
+    fun listen( ) {
+        // use the speech recognizer
+        var speechResults : SpeechResults = SpeechResults( )
+        speechRecognizer.setRecognitionListener( speechResults )
+        var speechIntent : Intent = Intent( RecognizerIntent.ACTION_RECOGNIZE_SPEECH )
+        speechIntent.putExtra( RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US" )
+        speechRecognizer.startListening( speechIntent )
+
+    }
+
+    inner class Results : ActivityResultCallback<Boolean> {
+        override fun onActivityResult(result: Boolean) {
+            if( result ) {
+                // start using speech recognizer
+                listen( )
+            } else {
+                Log.w( "MainActivity", "Permission not granted" )
+            }
+        }
+    }
+
+    inner class SpeechResults : RecognitionListener {
+        override fun onReadyForSpeech(p0: Bundle?) {}
+
+        override fun onBeginningOfSpeech() {}
+
+        override fun onRmsChanged(p0: Float) {}
+
+        override fun onBufferReceived(p0: ByteArray?) {}
+
+        override fun onEndOfSpeech() {}
+
+        override fun onError(p0: Int) {
+            listen( )
+        }
+
+        override fun onResults(p0: Bundle?) {
+            if( p0 != null ) {
+                var words: ArrayList<String>? =
+                    p0.getStringArrayList( SpeechRecognizer.RESULTS_RECOGNITION )
+                var scores : FloatArray? =
+                    p0.getFloatArray( SpeechRecognizer.CONFIDENCE_SCORES )
+                if( words != null ) {
+                    var voiceSearch = words.joinToString(separator = " ")
+                    searchBar.setQuery(voiceSearch, false)
+                    searchBar.clearFocus()
+                }
+            }
+            listen()
+        }
+
+        override fun onPartialResults(p0: Bundle?) {}
+
+        override fun onEvent(p0: Int, p1: Bundle?) {}
 
     }
 
@@ -84,7 +170,7 @@ class SearchActivity : AppCompatActivity() {
 
     inner class ListItemHandler : AdapterView.OnItemClickListener {
         override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-            var selectedRecipe : String = recipes.get( p2 )
+            var selectedRecipe : String = recipes[p2]
             var reference: DatabaseReference = firebase.reference.child(selectedRecipe)
             currentRecipeName = selectedRecipe
             reference.addListenerForSingleValueEvent (object : ValueEventListener {

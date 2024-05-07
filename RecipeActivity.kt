@@ -28,12 +28,7 @@ class RecipeActivity : AppCompatActivity() {
         currentRecipe.setInstructions(instructions)
 
         nameView.text = "Recipe Selected: " + name
-        var allIngredients = "Ingredients: "
-        for (ingredient in ingredients) {
-            allIngredients += ingredient
-            if (ingredients[ingredients.size - 1] != ingredient)
-                allIngredients += ", "
-        }
+        var allIngredients = "Ingredients: " + ingredients.joinToString()
         ingredientsView.text = allIngredients
         var allInstructions = "Instructions:\n"
         for (i in 0..instructions.size-1) {
