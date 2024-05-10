@@ -12,7 +12,7 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/appicon"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="130dp"
         android:contentDescription="app icon"
         />
     
@@ -79,10 +79,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:text="START"
         android:textSize="32sp"
         android:backgroundTint="#300800"
+        android:id="@+id/start"
         />
+
+    <LinearLayout
+        android:id="@+id/ad_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+    </LinearLayout>
 
 </RelativeLayout>
